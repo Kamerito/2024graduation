@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Keion Live PR</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="apple-touch-icon" href="/public/keion.ico">
+    <link rel="icon" href="/public/keion.png" type="image/png">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter&family=Zen+Kaku+Gothic+New&display=swap');
+
+        * {
+            box-sizing: border-box;
+        }
+
+
+        body {
+            background-color: #FFFFFF;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        header {
+            background-color: #FFFFFF;
+            position: fixed;
+            width: 90%;
+            padding: 10px;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        header a {
+            color: #fcbcbc;
+            font-size: 30px;
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+
+        main {
+            padding-top: 60px;
+        }
+
+        stream-board {
+            display: flex;
+        }
+
+
+        #intro {
+            text-align: center;
+            margin-top: 20px;
+            color: #FFFFFF;
+        }
+
+        #intro h1 {
+            margin-bottom: 10vh;
+        }
+
+        #news {
+            background-color: #FFFFFF;
+            padding: 20px;
+        }
+
+        #news h2 {
+            color: #666666;
+        }
+
+        #news div {
+            border: 2px solid #fcbcbc;
+            padding: 20px;
+            margin-left: 20%;
+            margin-right: 20%;
+        }
+
+        #comments {
+            list-style-type: none;
+            padding: 0;
+        }
+
+
+        footer {
+            color: #A1A3A6;
+            text-align: center;
+            padding: 10px;
+            width: 100%;
+            bottom: 0;
+        }
+
+        h1 {
+            font-family: 'Inter', sans-serif;
+            font-weight: bold;
+            font-size: 30px;
+            color: #666666;
+        }
+
+        h2 {
+            font-family: 'Inter', sans-serif;
+            font-weight: bold;
+            font-size: 20px;
+            color: #666666;
+        }
+
+        p {
+            font-family: 'Inter', sans-serif;
+            font-weight: bold;
+            font-size: 15px;
+            color: #FFFFFF;
+        }
+
+        h3 {
+            font-family: 'Zen Kaku Gothic New', sans-serif;
+            font-weight: bold;
+            font-size: 30px;
+            color: #666666;
+        }
+
+        h4 {
+            font-family: 'Zen Kaku Gothic New', sans-serif;
+            font-weight: bold;
+            font-size: 15px;
+            color: #666666;
+        }
+
+        h5 {
+            font-family: 'Zen Kaku Gothic New', sans-serif;
+            font-weight: bold;
+            font-size: 20px;
+            color: #1a1a1a;
+        }
+
+        #stream-board {
+            border: 2px solid #fcbcbc;
+            padding: 20px;
+            margin-left: 20%;
+            margin-right: 20%;
+            margin-bottom: 5%;
+        }
+
+        #stream,
+        #board {
+            flex: 1;
+            box-sizing: border-box;
+        }
+
+        .timetable-container {
+            height: 400px;
+            overflow-y: auto;
+            flex-direction: column;
+            border: 2px solid #fcbcbc;
+            padding: 20px;
+            margin-left: 20%;
+            margin-right: 20%;
+            margin-bottom: 10vh;
+            scrollbar-width: none;
+        }
+
+        .timetable-row {
+            flex: 1;
+        }
+
+        .timetable-cell {
+            flex: 1;
+            box-sizing: border-box;
+            border-radius: 10px;
+            margin: 5px;
+            padding: 10px;
+            width: 20vw;
+            margin-left: 32%;
+        }
+
+        .red {
+            background-color: #ff9bac;
+        }
+
+        .green {
+            background-color: #b6ea84;
+        }
+
+        .blue {
+            background-color: #3dd0db;
+        }
+
+        .orange {
+            background-color: #ffb86d;
+        }
+
+        .ml4 {
+            position: relative;
+        }
+
+        .ml4 .letters {
+            position: absolute;
+            margin: auto;
+            left: 0;
+            top: -10vh;
+            right: 0;
+            opacity: 0;
+            max-width: 25vw;
+        }
+
+        iframe {
+            width: 50vw;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        label {
+            margin-bottom: 5px;
+        }
+
+        input[type="text"] {
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            width: 250px;
+        }
+
+
+        /* レスポンシブ */
+        @media screen and (max-width: 768px) {
+
+            body {
+                background-image: url('/public/phone-back.webp');
+                background-size: contain;
+                background-repeat: repeat-y;
+                background-size: 100%;
+            }
+
+            header {
+                background-color: #FFFFFF;
+                position: fixed;
+                display: flex;
+                justify-content: flex-end;
+            }
+
+            header a {
+                color: #36BAC4;
+                font-size: 30px;
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+
+            #intro {
+                text-align: center;
+                color: #FFFFFF;
+            }
+
+            #intro h1 {
+                margin-bottom: 0vh;
+            }
+
+            header a {
+                color: #36BAC4;
+                font-size: 30px;
+                margin-left: 10px;
+                margin-right: 10px;
+            }
+
+            #stream-board {
+                border: 2px solid #36BAC4;
+                padding: 20px;
+                margin-left: 20%;
+                margin-right: 20%;
+                margin-bottom: 5%;
+            }
+
+            #news div {
+                border: 2px solid #36BAC4;
+                padding: 20px;
+                margin-left: 20%;
+                margin-right: 20%;
+            }
+
+            .timetable-container {
+                height: 400px;
+                overflow-y: auto;
+                flex-direction: column;
+                border: 2px solid #36BAC4;
+                padding: 20px;
+                margin-left: 20%;
+                margin-right: 20%;
+                margin-bottom: 10vh;
+                scrollbar-width: none;
+            }
+
+
+            h1 {
+                font-family: 'Inter', sans-serif;
+                font-weight: bold;
+                font-size: 20px;
+                color: #666666;
+            }
+
+            h2 {
+                font-family: 'Inter', sans-serif;
+                font-weight: bold;
+                font-size: 10px;
+                color: #666666;
+            }
+
+            p {
+                font-family: 'Inter', sans-serif;
+                font-weight: bold;
+                font-size: 10px;
+                color: #FFFFFF;
+            }
+
+            h3 {
+                font-family: 'Zen Kaku Gothic New', sans-serif;
+                font-weight: bold;
+                font-size: 20px;
+                color: #666666;
+            }
+
+            h4 {
+                font-family: 'Zen Kaku Gothic New', sans-serif;
+                font-weight: bold;
+                font-size: 10px;
+                color: #666666;
+            }
+
+            h5 {
+                font-family: 'Zen Kaku Gothic New', sans-serif;
+                font-weight: bold;
+                font-size: 8px;
+                color: #1a1a1a;
+            }
+
+            .ml4 {
+                display: none;
+            }
+
+            .timetable-cell {
+                flex: 1;
+                box-sizing: border-box;
+                border-radius: 10px;
+                margin: 5px;
+                padding: 10px;
+                width: 50vw;
+            }
+
+            .substitute-text {
+                display: block;
+            }
+
+            .timetable-container {
+                height: 400px;
+                overflow-y: auto;
+                flex-direction: column;
+                border: 2px solid #fcbcbc;
+                padding: 20px;
+                margin-left: 20%;
+                margin-right: 20%;
+                margin-bottom: 10vh;
+                scrollbar-width: none;
+            }
+
+            iframe {
+                width: 50vw;
+            }
+
+            .pc {
+                display: none !important;
+            }
+
+            .sp {
+                display: block !important;
+                height: 40vh;
+                text-align: center;
+                margin: auto;
+            }
+
+            button[type="submit"] {
+                padding: 10px 20px;
+                background-color: #36BAC4;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+
+            button[type="submit"]:hover {
+                background-color: #3697c4;
+            }
+
+
+        }
+
+
+
+        @media screen and (min-width: 769px) {
+
+            body {
+                background-image: url('/public/pc-back.webp');
+                background-repeat: repeat-y;
+                background-size: contain;
+            }
+
+            .pc {
+                display: block !important;
+                height: 40vh;
+                text-align: center;
+                margin: auto;
+            }
+
+            .sp {
+                display: none !important;
+            }
+
+            .substitute-text {
+                display: none;
+            }
+
+            button[type="submit"] {
+                padding: 10px 20px;
+                background-color: #fcbcc4;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+
+            button[type="submit"]:hover {
+                background-color: #ffbcbc;
+            }
+
+
+        }
+    </style>
+</head>
+
+
+<body>
+    <header>
+        <a href="https://twitter.com/Hirogaku_keion_"><i class="fa-brands fa-x-twitter"></i></a>
+        <a href="https://www.instagram.com/hg_k_on?utm_source=qr&igsh=MWpqZ2gzdG9kZnh0OQ%3D%3D"><i
+                class="fab fa-instagram"></i></a>
+    </header>
+
+    <main>
+        <img class="pc" src="/public/keion-pink.png" alt="パソコン用の画像">
+        <img class="sp" src="/public/keion.webp" alt="スマートフォン用の画像">
+
+        <div id="intro">
+            <h1 class="substitute-text">2023年度軽音楽部卒業ライブ</h1>
+            <h3>DAY1: 2024.3.28 (Thu.)11:00~15:00<br>DAY2: 2024.3.29(Fri.)10:00~15:00<br>@広尾学園ラウンジ&2A</h3>
+        </div>
+
+        <div id="stream-board">
+            <h2>Stream</h2>
+            <div>
+                <div id="stream">
+                    <iframe src="https://player.vimeo.com/video/652210410?h=db0f59b4b5&title=0&byline=0&portrait=0" width="640" height="360" frameborder="0" allow="autoplay; fullscreen; picture-in-picture" allowfullscreen></iframe>
+                 </div>
+
+                <div id="board">
+                    <h2>Board</h2>
+                    <div>
+                        <% comments.forEach(comment=> { %>
+                            <h4>
+                                <%= comment.content %>
+                            </h4>
+                            <% }); %>
+                    </div>
+                    <form action="/addComment" method="post">
+                        <label for="comment"></label>
+                        <input type="text" name="content" required>
+                        <button type="submit">投稿する</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <div id="news">
+            <h2>News</h2>
+            <div>
+                <h5>
+                    2024.03.17 バンド一覧を更新しました。<br>
+                    2024.03.15 開始時間が変更になりました。<br>
+                    2024.03.12 バンド一覧を更新しました。<br>
+                    2024.02.19 ウェブサイトを公開しました。
+                </h5>
+            </div>
+        </div>
+
+        <div id="timetable">
+            <h2>Bands</h2>
+            <h4>赤:H3 緑:H2 橙:混合<br>バンド名-演奏曲</h4>
+            <div class="timetable-container" id="timetable-container">
+            </div>
+        </div>
+
+    </main>
+
+    <footer>
+        ©︎2024 Keion Live PR
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+    <script>
+        const songs = [
+            { title: "ないものねだり,またね", artist: "コーギー", category: "orange" },
+            { title: "奏,水流のロック,グッドな音楽を,オー!リバル", artist: "Cadence keynotes", category: "green" },
+            { title: "言って。 晴る", artist: "嘘つき達", category: "green" },
+            { title: "天体観測", artist: "Reach", category: "green" },
+            { title: "ロストワンの号哭,夜咄ディセイブ", artist: "θ", category: "green" },
+            { title: "かわE,Tank top of the world,あつまれ☆パーティーピーポー,ハッピーウェディング前ソング", artist: "たつしくる", category: "orange" },
+            { title: "ちゅ、多様性,瞬間センチメンタル", artist: "Fumpy", category: "green" },
+            { title: "かくれんぼ,impulse", artist: "MAD BATTERS", category: "green" },
+            { title: "HE IS MINE,愛の標識,インフェルノ,Mela!", artist: "センサーシップ", category: "orange" },
+            { title: "SPECIALZ", artist: "逆ら番", category: "green" },
+            { title: "ロビンソン", artist: "キラキラ共和国", category: "green" },
+            { title: "ホワイトノイズ", artist: "skept", category: "orange" },
+            { title: "DAYBREAK FRONTLINE", artist: "IMO", category: "orange" },
+            { title: "青のすみか,The Beginning", artist: "coincidence", category: "orange" },
+            { title: "新宝島", artist: "CtoC", category: "orange" },
+            { title: "American ldiot, Dream on, the house of the rising sun", artist: "irene's", category: "orange" },
+            { title: "人生のメリーゴーランド,Just the two of us", artist: "dat punk", category: "orange" },
+            { title: "群青讃歌,アカシア", artist: "のこったーず", category: "red" },
+            { title: "シンデレラボーイ,DENKOUSEKKA", artist: "からあげどっぐ", category: "red" },
+            { title: "バトンロード,栞", artist: "シークレッツ", category: "red" },
+            { title: "レイメイ", artist: "シリウス", category: "red" },
+            { title: "テレキャスタービーボーイ", artist: "照照様", category: "red" },
+            { title: "God knows...,ギターと孤独と青い惑星", artist: "KOF団", category: "red" },
+            { title: "お勉強しといてよ", artist: "はくちゅうむ", category: "red" },
+            { title: "快晴", artist: "Gnu Brain", category: "red" },
+            { title: "StaRt", artist: "いいえ", category: "red" },
+            { title: "ベノム,ヒバナ", artist: "非力ハムスター", category: "red" },
+            { title: "いつか", artist: "fracture", category: "red" },
+            { title: "絆の奇跡", artist: "未定", category: "red" },
+            { title: "夕暮れ沿い、", artist: "未定", category: "red" },
+            { title: "真赤", artist: "名前なし", category: "red" },
+            { title: "灼熱にて純情", artist: "未定", category: "red" },
+            { title: "曖昧劣情lover", artist: "未定", category: "red" },
+            { title: "心做し,ただ声一つ", artist: "渦潮ぽてと+", category: "green" },
+            { title: "The hole", artist: "Bocci", category: "green" },
+            { title: "晩餐歌,トレモロ", artist: "霞草", category: "green" },
+            { title: "欲望に満ちた少年団", artist: "Who's ", category: "green" },
+            { title: "灰色と青,快晴のバスに乗る", artist: "Amber", category: "green" },
+            { title: "春を待つ feat.倚水", artist: "無", category: "red" },
+            { title: "平行線", artist: "テトラポット", category: "red" },
+            { title: "しょうもな", artist: "名前なし", category: "red" },
+        ];
+
+        // HTMLに曲のデータを反映する関数を定義
+        function renderTimetable() {
+            const timetableContainer = document.getElementById('timetable-container');
+            songs.forEach(song => {
+                const cell = document.createElement('div');
+                cell.className = `timetable-cell ${song.category}`;
+                cell.innerHTML = `<p>${song.title} / ${song.artist}</p>`;
+                timetableContainer.appendChild(cell);
+            });
+        }
+
+        // ページが読み込まれたときに曲表を生成
+        window.onload = function () {
+            renderTimetable();
+        };
+    </script>
+</body>
+
+</html>
